@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button onclick="interagir()">Clique Aqui</button>
+    <script>
+        //Exibe a caixa de confirmação
+        let resposta = confirm("Sopa não é janta!")
+
+        //Verifica se o usuário clicou "OK" ou "Cancelar"
+        if(resposta){
+            //Usuário clicou em "OK"
+            alert("Issooo Mesmo!")
+        }else{
+            alert("Sopa não é Janta!! Aceite!!")
+        }
+
+        function interagir(){
+            //Exibe a caixa de confirmação
+            const resposta = confirm("Você deseja ver uma mensagem?")
+
+            if(resposta){
+                document.write("Você é incrível!")
+            }else{
+                document.write("BK é melhor que MC")
+            }
+
+            
+            
+        }
+    </script>
+</body>
+</html>
