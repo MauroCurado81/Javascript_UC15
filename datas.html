@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datas</title>
+</head>
+<body>
+    <script>
+        //Data Atual
+        const dataAtual = new Date()
+        alert(dataAtual)
+        alert(dataAtual.toLocaleDateString())
+
+        let hora = dataAtual.getHours()
+        let minutos = dataAtual.getMinutes()
+        let segundos = dataAtual.getSeconds()
+
+        alert(`${hora}:${minutos}:${segundos}`)
+
+    </script>
+</body>
+</html>
