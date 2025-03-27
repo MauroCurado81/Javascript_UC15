@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Seu Perfil</h1>
+    
+    <!--Elementos onde as informações serão exibidas-->
+    <div id="nome"></div>
+    <div id="idade"></div>
+    <div id="cidade"></div>
+    <div id="JogoFavorito"></div>
+
+    <script>
+        //crie um código Javascript que capture os dados
+
+        let nome = prompt("Digite seu nome?");
+        let idade = prompt("Digite sua idade");
+        let cidade = prompt("Digite sua cidade");
+        let jogoFavorito = prompt("Digite o jogo favorito");
+
+        if(isNaN(idade)){
+            alert("Digite um número")
+            idade="Digite um número"            
+        }
+
+        //Nome, idade, cidade, JogoFavorito via prompt e mostre nas divs
+
+        document.getElementById("nome").innerHTML = nome
+        document.getElementById("idade").innerHTML = idade
+        document.getElementById("cidade").innerHTML = cidade
+        document.getElementById("JogoFavorito").innerHTML = jogoFavorito
+    </script>
+
+</body>
+</html>

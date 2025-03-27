@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="padding:20px">
+        <h2>Detalhes do Produto</h2>
+        Preço <span class="valor">R$2500,00</span>
+    </div>
+    <script>
+        //Verifica se é Iphone
+        if (/iPhone/i.test(navigator.userAgent)) {
+            document.querySelector(".valor").textContent = "R$3400,00";
+            alert("Você está usando um iPhone.");
+        }
+        // Verifica se é Android
+        if (/Android/i.test(navigator.userAgent)) {
+            document.querySelector(".valor").textContent = "R$1200,00";
+            alert("Você está usando um Android.");
+        }
+        //Atividade
+        //Se Android Preço 1200,00
+        //Aparecer um alerta informando se a pessoa está no
+        //Android ou Iphone
+    </script>
+    
+</body>
+</html>
