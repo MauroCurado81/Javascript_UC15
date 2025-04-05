@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquina Escrever</title>
+    <style>
+        /* Estilos CSS para a página */
+        body{
+            display: flex; /* Flexbox para layout */
+            justify-content: center; /* Centralizar horizontal */
+            align-items: center; /* Centralizar vertical */
+            min-height: 100vh ;
+            margin: 0; /* Remove margens padrão */
+            background-color: black; /* Cor fundo */
+            font-family: 'Courier New'; /* Fonte do site */
+            color:#00ff00; /* Cor do texto */
+        }
+        #maquinaEscrever-text{
+            font-size:24px;
+            /*Tamanho Texto */
+            border-right:2px solid #00ff00;
+            /* Curso verde á direita */
+            white-space:nowrap;
+            /*Mantém texto em uma linha só */
+            overflow: hidden;
+            /* Esconder texto que Ultrapassar */
+            animation:piscarCursor 0.7s infinite;
+            /*Chama animação CSS com 7 segundos */
+        }
+        @keyframes piscarCursor{
+            from{
+                border-right-color:transparent;
+            }
+            to{
+                border-color: #00ff00;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="piscarCursor"></div>
+    <script>
+        // Configuração do efeito
+        const texto = prompt("Digita um texto!!")
+        const elemento = document.getElementById("piscarCursor")
+        const velocidade = 50
+        // Função Principal
+        function escreverTexto(texto,elemento,velocidade){
+            // Contador para rastrear a posição do texto
+            let contador=0
+            //Desativar a animação do cursos
+            elemento.style.animation = "none"
+            function digitar(){
+                // Verifica se ainda há caracteres para digitar
+                if(contador<texto.length){
+                    // Adiciona o caractere atual ao elemento
+                    elemento.textContent += texto[contador]
+                    // Avança para o próximo caractere
+                    contador++
+                    // Agenda a proxima digitação apos o tempo
+                    setTimeout(digitar,velocidade)
+                }else{
+                    // Qaundo o texto estiver completo, remove cursor
+                    elemento.style.borderRight = "none"
+                }
+                
+            }
+            //Chama  o processo para o inicio da execução
+            digitar()
+                
+                
+            }
+            // Inicializa 
+                // Aguarda 1 segundos 1000ms
+            setTimeout(()=>escreverTexto(texto,elemento,velocidade),1000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montar Computador</title>
+    <style>
+        body{
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .categoria{
+            background: #f8f8f8;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .opcoes{
+            display:flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .opcao{
+            background: white;
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 8 px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .selecionado{
+            border-color: #2196f3;
+            background: #f8f8f8;
+        }
+        #montagem{
+            background: #e0e0e0;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1> Monte seu computador</h1>
+    <div id="montagem">
+        <h3>Sua Montagem</h3>
+        <p>Placa:<span id="placaEscolhida">Nenhuma</span></p>
+    </div>
+    <!--Primeira Categoria : Placa Mãe-->
+    <div class="categoria">
+        <h2>Placa Mãe</h2>
+        <div class="opcoes">
+            <div class="opcao" onclick="selecionarPlaca(this,'Asus B550')">
+                Asus B550
+            </div>
+            <div class="opcao" onclick="selecionarPlaca(this,'Gigabyte Z690')">
+                Gigabyte Z690
+            </div>
+        </div>
+    </div>
+    <script>
+        //Função para Selecionar Placa-Mãe
+        function selecionarPlaca(elemento, nome){
+            //1. Remove Seleção de todas placas
+            document.querySelectorAll('.categoria:nth-child(1) .opcao')
+            .forEach(op => {
+                op.classList.remove('selecionado')
+            })
+
+            //2. Atualiza visual e texto
+            elemento.classList.add('selecionado')/*Coloca borda azul*/
+            document.getElementById('placaEscolhida').textContent = nome
+        }
+    </script>
+</body>
+</html>

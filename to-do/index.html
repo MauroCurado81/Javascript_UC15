@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas com JS</title>
+
+    <style>
+    /*Estilos básicos para organizar os elementos*/
+    button{
+        padding: 8px 15px;
+        background-color: blue;
+        color:aliceblue;
+        border:none;
+        cursor:pointer;
+    }
+    #inputTarefas{
+        padding: 8px;
+        width: 70%;
+    }
+    ul{
+        list-style-type: none;
+        padding: 0;
+    }
+    li{
+        padding: 8px;
+        background-color: #f9f9f9;
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    body{
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+    <input type="text" id="inputTarefas" placeholder="Digite uma nova tarefa">
+    <button onclick="adicionarTarefas()">Adicionar</button>
+
+    <ul id="listaTarefas"></ul>
+    <script src="javascript.js"></script>
+</body>
+
+</html>
