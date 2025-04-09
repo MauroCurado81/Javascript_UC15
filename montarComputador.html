@@ -1,78 +1,341 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Montar Computador</title>
-    <style>
-        body{
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .categoria{
-            background: #f8f8f8;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 10px;
-        }
-        .opcoes{
-            display:flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .opcao{
-            background: white;
-            border: 2px solid #ddd;
-            padding: 10px;
-            border-radius: 8 px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .selecionado{
-            border-color: #2196f3;
-            background: #f8f8f8;
-        }
-        #montagem{
-            background: #e0e0e0;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1> Monte seu computador</h1>
-    <div id="montagem">
-        <h3>Sua Montagem</h3>
-        <p>Placa:<span id="placaEscolhida">Nenhuma</span></p>
-    </div>
-    <!--Primeira Categoria : Placa Mãe-->
-    <div class="categoria">
-        <h2>Placa Mãe</h2>
-        <div class="opcoes">
-            <div class="opcao" onclick="selecionarPlaca(this,'Asus B550')">
-                Asus B550
-            </div>
-            <div class="opcao" onclick="selecionarPlaca(this,'Gigabyte Z690')">
-                Gigabyte Z690
-            </div>
-        </div>
-    </div>
-    <script>
-        //Função para Selecionar Placa-Mãe
-        function selecionarPlaca(elemento, nome){
-            //1. Remove Seleção de todas placas
-            document.querySelectorAll('.categoria:nth-child(1) .opcao')
-            .forEach(op => {
-                op.classList.remove('selecionado')
-            })
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Montar Computador</title>
+  <style>
+    body {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: black;
+      transition: 0.3s;
+    }
 
-            //2. Atualiza visual e texto
-            elemento.classList.add('selecionado')/*Coloca borda azul*/
-            document.getElementById('placaEscolhida').textContent = nome
+    .dark-mode {
+      background: #121212;
+      color: #f1f1f1;
+    }
+
+    .categoria {
+      background: #f8f8f8;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+    }
+
+    .dark-mode .categoria {
+      background: #1e1e1e;
+    }
+
+    .opcoes {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .opcao {
+      background: white;
+      border: 2px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dark-mode .opcao {
+      background: #2c2c2c;
+      color: white;
+      border-color: #555;
+    }
+
+    .opcao:hover {
+      background: #eee;
+    }
+
+    .selecionado {
+      border-color: #2196f3;
+      background: #e0f0ff;
+    }
+
+    .dark-mode .selecionado {
+      background: #2f5d88;
+    }
+
+    #montagem {
+      background: #e0e0e0;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px;
+      text-align: left;
+    }
+
+    .dark-mode #montagem {
+      background: #292929;
+    }
+
+    #precoTotal {
+      font-weight: bold;
+      color: green;
+    }
+
+    #modoBotao {
+      margin: 20px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .opcao:active {
+      transform: scale(0.98);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .opcoes {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body onload="carregarSelecionados()">
+  <h1>🖥️ Monte seu computador</h1>
+  <button class="botao" onclick="alternarModo()">🌙 Alternar Modo</button>
+  <button class="botao" onclick="gerarPDF()">🖨️ Imprimir Orçamento</button>
+  <button class="botao" onclick="limparSelecoes()">🧹 Limpar Seleções</button>
+
+  <div id="montagem">
+    <h3>Sua Montagem</h3>
+    <p>Processador: <span id="processadorEscolhido">Nenhum</span></p>
+    <p>Placa Mãe: <span id="placaEscolhida">Nenhuma</span></p>
+    <p>HD: <span id="hdEscolhido">Nenhum</span></p>
+    <p>Fonte: <span id="fonteEscolhida">Nenhuma</span></p>
+    <p>RAM: <span id="ramEscolhida">Nenhuma</span></p>
+    <p>Gabinete: <span id="gabineteEscolhido">Nenhum</span></p>
+    <p>Pasta Térmica: <span id="pastaEscolhida">Nenhuma</span></p>
+    <p>Monitor: <span id="monitorEscolhido">Nenhum</span></p>
+    <p>Mouse: <span id="mouseEscolhido">Nenhum</span></p>
+    <p>Teclado: <span id="tecladoEscolhido">Nenhum</span></p>
+    <p>Total: R$ <span id="precoTotal">0</span></p>
+  </div>
+
+  <!-- Categorias de seleção -->
+  <div class="categoria">
+    <h2>Processador 💻</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('processadorEscolhido', this, 'Intel i5')">Intel i5</div>
+      <div class="opcao" onclick="selecionar('processadorEscolhido', this, 'AMD Ryzen 5')">AMD Ryzen 5</div>
+      <div class="opcao" onclick="selecionar('processadorEscolhido', this, 'Intel i7')">Intel i7</div>
+      <div class="opcao" onclick="selecionar('processadorEscolhido', this, 'AMD Ryzen 7')">AMD Ryzen 7</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Placa Mãe</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('placaEscolhida', this, 'Asus B550')">Asus B550</div>
+      <div class="opcao" onclick="selecionar('placaEscolhida', this, 'Gigabyte Z690')">Gigabyte Z690</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Disco Rígido 💾</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('hdEscolhido', this, '256GB')">256GB</div>
+      <div class="opcao" onclick="selecionar('hdEscolhido', this, '512GB')">512GB</div>
+      <div class="opcao" onclick="selecionar('hdEscolhido', this, '1TB')">1TB</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Fonte de Alimentação ⚡</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('fonteEscolhida', this, '500W')">500W</div>
+      <div class="opcao" onclick="selecionar('fonteEscolhida', this, '650W')">650W</div>
+      <div class="opcao" onclick="selecionar('fonteEscolhida', this, '750W')">750W</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Memória RAM 🧠</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('ramEscolhida', this, '8GB')">8GB</div>
+      <div class="opcao" onclick="selecionar('ramEscolhida', this, '16GB')">16GB</div>
+      <div class="opcao" onclick="selecionar('ramEscolhida', this, '32GB')">32GB</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Gabinete 🗄️</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('gabineteEscolhido', this, 'Mini Tower')">Mini Tower</div>
+      <div class="opcao" onclick="selecionar('gabineteEscolhido', this, 'Mid Tower RGB')">Mid Tower RGB</div>
+      <div class="opcao" onclick="selecionar('gabineteEscolhido', this, 'Full Tower Gamer')">Full Tower Gamer</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Pasta Térmica 🌡️</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('pastaEscolhida', this, 'Sim')">Sim</div>
+      <div class="opcao" onclick="selecionar('pastaEscolhida', this, 'Não')">Não</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Monitor 📺</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'LED 24')">LED 24"</div>
+      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'LCD 27')">LCD 27"</div>
+      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'OLED 32')">OLED 32"</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Mouse 🖱️</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('mouseEscolhido', this, 'Com fio')">Com fio</div>
+      <div class="opcao" onclick="selecionar('mouseEscolhido', this, 'Sem fio')">Sem fio</div>
+      <div class="opcao" onclick="selecionar('mouseEscolhido', this, 'Gamer RGB')">Gamer RGB</div>
+    </div>
+  </div>
+
+  <div class="categoria">
+    <h2>Teclado ⌨️</h2>
+    <div class="opcoes">
+      <div class="opcao" onclick="selecionar('tecladoEscolhido', this, 'Mecânico')">Mecânico</div>
+      <div class="opcao" onclick="selecionar('tecladoEscolhido', this, 'Membrana')">Membrana</div>
+      <div class="opcao" onclick="selecionar('tecladoEscolhido', this, 'ABNT2 com LED')">ABNT2 com LED</div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Preços dos componentes
+    const precos = {
+      "Intel i5": 1200,
+      "AMD Ryzen 5": 1100,
+      "Intel i7": 2000,
+      "AMD Ryzen 7": 1800,
+      "Asus B550": 750,
+      "Gigabyte Z690": 1200,
+      "256GB": 200,
+      "512GB": 300,
+      "1TB": 450,
+      "500W": 150,
+      "650W": 200,
+      "750W": 250,
+      "8GB": 100,
+      "16GB": 200,
+      "32GB": 400,
+      "Mini Tower": 150,
+      "Mid Tower RGB": 300,
+      "Full Tower Gamer": 500,
+      "Sim": 30,
+      "Não": 0,
+      "LED 24\"": 400,
+      "LCD 27\"": 600,
+      "OLED 32\"": 1200,
+      "Com fio": 50,
+      "Sem fio": 100,
+      "Gamer RGB": 200,
+      "Mecânico": 300,
+      "Membrana": 100,
+      "ABNT2 com LED": 150
+    };
+
+    // Função para selecionar componentes
+    function selecionar(idCampo, elemento, nome) {
+      const categoria = elemento.closest('.categoria');
+      categoria.querySelectorAll('.opcao').forEach(op => op.classList.remove('selecionado'));
+      elemento.classList.add('selecionado');
+      
+      document.getElementById(idCampo).textContent = nome;
+      localStorage.setItem(idCampo, nome);
+      atualizarPrecoTotal();
+    }
+
+    // Carregar as escolhas do localStorage
+    function carregarSelecionados() {
+      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhida', 'gabineteEscolhido', 'pastaEscolhida', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
+      ids.forEach(id => {
+        const valor = localStorage.getItem(id);
+        if (valor) {
+          document.getElementById(id).textContent = valor;
+          // marcar visualmente
+          document.querySelectorAll('.categoria').forEach(cat => {
+            const op = Array.from(cat.querySelectorAll('.opcao')).find(el => el.textContent === valor);
+            if (op) op.classList.add('selecionado');
+          });
         }
-    </script>
+      });
+      atualizarPrecoTotal();
+    }
+
+    // Atualizar o preço total
+    function atualizarPrecoTotal() {
+      let total = 0;
+      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhida', 'gabineteEscolhido', 'pastaEscolhida', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
+      ids.forEach(id => {
+        const valor = document.getElementById(id).textContent;
+        if (precos[valor]) total += precos[valor];
+      });
+      document.getElementById('precoTotal').textContent = total.toFixed(2);
+    }
+
+    // Gerar PDF com o orçamento
+    function gerarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFont("helvetica", "normal");
+      doc.text("Orçamento da Montagem de Computador", 20, 20);
+      
+      const components = [
+        "Processador: " + document.getElementById("processadorEscolhido").textContent,
+        "Placa Mãe: " + document.getElementById("placaEscolhida").textContent,
+        "HD: " + document.getElementById("hdEscolhido").textContent,
+        "Fonte: " + document.getElementById("fonteEscolhida").textContent,
+        "RAM: " + document.getElementById("ramEscolhida").textContent,
+        "Gabinete: " + document.getElementById("gabineteEscolhido").textContent,
+        "Pasta Térmica: " + document.getElementById("pastaEscolhida").textContent,
+        "Monitor: " + document.getElementById("monitorEscolhido").textContent,
+        "Mouse: " + document.getElementById("mouseEscolhido").textContent,
+        "Teclado: " + document.getElementById("tecladoEscolhido").textContent,
+        "Total: R$ " + document.getElementById("precoTotal").textContent
+      ];
+
+      let y = 30;
+      components.forEach(component => {
+        doc.text(component, 20, y);
+        y += 10;
+      });
+
+      doc.save("orçamento_computador.pdf");
+
+      
+    }
+
+        // Limpar as seleções
+        function limparSelecoes() {
+      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhida', 'gabineteEscolhido', 'pastaEscolhida', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
+      ids.forEach(id => {
+        document.getElementById(id).textContent = "Nenhum";
+      });
+      document.querySelectorAll('.opcao').forEach(op => op.classList.remove('selecionado'));
+      localStorage.clear();
+      atualizarPrecoTotal();
+    }
+
+    // Alternar modo claro/escuro
+    function alternarModo() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
 </body>
 </html>
