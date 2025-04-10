@@ -9,9 +9,9 @@
       text-align: center;
       max-width: 800px;
       margin: 0 auto;
-      font-family: Arial, sans-serif;
-      background: white;
-      color: black;
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f9;
+      color: #333;
       transition: 0.3s;
     }
 
@@ -20,15 +20,39 @@
       color: #f1f1f1;
     }
 
-    .categoria {
-      background: #f8f8f8;
-      padding: 15px;
+    h1 {
+      color: #2196f3;
+      margin-bottom: 20px;
+    }
+
+    .botao {
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
       margin: 10px;
+    }
+
+    .botao:hover {
+      background-color: #1976d2;
+    }
+
+    .categoria {
+      background: #fff;
+      padding: 15px;
+      margin: 15px 0;
       border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
     }
 
     .dark-mode .categoria {
       background: #1e1e1e;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .opcoes {
@@ -39,22 +63,28 @@
     }
 
     .opcao {
-      background: white;
+      background: #fff;
       border: 2px solid #ddd;
-      padding: 10px;
+      padding: 12px 20px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s;
+      text-transform: capitalize;
+      font-size: 14px;
     }
 
     .dark-mode .opcao {
-      background: #2c2c2c;
+      background: #333;
       color: white;
       border-color: #555;
     }
 
     .opcao:hover {
-      background: #eee;
+      background: #f0f0f0;
+    }
+
+    .dark-mode .opcao:hover {
+      background: #555;
     }
 
     .selecionado {
@@ -67,31 +97,22 @@
     }
 
     #montagem {
-      background: #e0e0e0;
+      background: #fff;
       padding: 20px;
       border-radius: 10px;
-      margin: 20px;
+      margin-top: 30px;
       text-align: left;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .dark-mode #montagem {
       background: #292929;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     #precoTotal {
       font-weight: bold;
       color: green;
-    }
-
-    #modoBotao {
-      margin: 20px;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .opcao:active {
-      transform: scale(0.98);
     }
 
     /* Responsividade */
@@ -114,9 +135,9 @@
     <p>Placa Mãe: <span id="placaEscolhida">Nenhuma</span></p>
     <p>HD: <span id="hdEscolhido">Nenhum</span></p>
     <p>Fonte: <span id="fonteEscolhida">Nenhuma</span></p>
-    <p>RAM: <span id="ramEscolhida">Nenhuma</span></p>
+    <p>RAM: <span id="ramEscolhido">Nenhuma</span></p>
     <p>Gabinete: <span id="gabineteEscolhido">Nenhum</span></p>
-    <p>Pasta Térmica: <span id="pastaEscolhida">Nenhuma</span></p>
+    <p>Pasta Térmica: <span id="pastaEscolhido">Nenhuma</span></p>
     <p>Monitor: <span id="monitorEscolhido">Nenhum</span></p>
     <p>Mouse: <span id="mouseEscolhido">Nenhum</span></p>
     <p>Teclado: <span id="tecladoEscolhido">Nenhum</span></p>
@@ -163,9 +184,9 @@
   <div class="categoria">
     <h2>Memória RAM 🧠</h2>
     <div class="opcoes">
-      <div class="opcao" onclick="selecionar('ramEscolhida', this, '8GB')">8GB</div>
-      <div class="opcao" onclick="selecionar('ramEscolhida', this, '16GB')">16GB</div>
-      <div class="opcao" onclick="selecionar('ramEscolhida', this, '32GB')">32GB</div>
+      <div class="opcao" onclick="selecionar('ramEscolhido', this, '8GB')">8GB</div>
+      <div class="opcao" onclick="selecionar('ramEscolhido', this, '16GB')">16GB</div>
+      <div class="opcao" onclick="selecionar('ramEscolhido', this, '32GB')">32GB</div>
     </div>
   </div>
 
@@ -181,17 +202,17 @@
   <div class="categoria">
     <h2>Pasta Térmica 🌡️</h2>
     <div class="opcoes">
-      <div class="opcao" onclick="selecionar('pastaEscolhida', this, 'Sim')">Sim</div>
-      <div class="opcao" onclick="selecionar('pastaEscolhida', this, 'Não')">Não</div>
+      <div class="opcao" onclick="selecionar('pastaEscolhido', this, 'Sim')">Sim</div>
+      <div class="opcao" onclick="selecionar('pastaEscolhido', this, 'Não')">Não</div>
     </div>
   </div>
 
   <div class="categoria">
     <h2>Monitor 📺</h2>
     <div class="opcoes">
-      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'LED 24')">LED 24"</div>
-      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'LCD 27')">LCD 27"</div>
-      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'OLED 32')">OLED 32"</div>
+      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'LED 24\"')">LED 24"</div>
+      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'LCD 27\"')">LCD 27"</div>
+      <div class="opcao" onclick="selecionar('monitorEscolhido', this, 'OLED 32\"')">OLED 32"</div>
     </div>
   </div>
 
@@ -262,7 +283,7 @@
 
     // Carregar as escolhas do localStorage
     function carregarSelecionados() {
-      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhida', 'gabineteEscolhido', 'pastaEscolhida', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
+      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhido', 'gabineteEscolhido', 'pastaEscolhido', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
       ids.forEach(id => {
         const valor = localStorage.getItem(id);
         if (valor) {
@@ -280,7 +301,7 @@
     // Atualizar o preço total
     function atualizarPrecoTotal() {
       let total = 0;
-      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhida', 'gabineteEscolhido', 'pastaEscolhida', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
+      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhido', 'gabineteEscolhido', 'pastaEscolhido', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
       ids.forEach(id => {
         const valor = document.getElementById(id).textContent;
         if (precos[valor]) total += precos[valor];
@@ -301,9 +322,9 @@
         "Placa Mãe: " + document.getElementById("placaEscolhida").textContent,
         "HD: " + document.getElementById("hdEscolhido").textContent,
         "Fonte: " + document.getElementById("fonteEscolhida").textContent,
-        "RAM: " + document.getElementById("ramEscolhida").textContent,
+        "RAM: " + document.getElementById("ramEscolhido").textContent,
         "Gabinete: " + document.getElementById("gabineteEscolhido").textContent,
-        "Pasta Térmica: " + document.getElementById("pastaEscolhida").textContent,
+        "Pasta Térmica: " + document.getElementById("pastaEscolhido").textContent,
         "Monitor: " + document.getElementById("monitorEscolhido").textContent,
         "Mouse: " + document.getElementById("mouseEscolhido").textContent,
         "Teclado: " + document.getElementById("tecladoEscolhido").textContent,
@@ -317,13 +338,11 @@
       });
 
       doc.save("orçamento_computador.pdf");
-
-      
     }
 
-        // Limpar as seleções
-        function limparSelecoes() {
-      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhida', 'gabineteEscolhido', 'pastaEscolhida', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
+    // Limpar as seleções
+    function limparSelecoes() {
+      const ids = ['processadorEscolhido', 'placaEscolhida', 'hdEscolhido', 'fonteEscolhida', 'ramEscolhido', 'gabineteEscolhido', 'pastaEscolhido', 'monitorEscolhido', 'mouseEscolhido', 'tecladoEscolhido'];
       ids.forEach(id => {
         document.getElementById(id).textContent = "Nenhum";
       });
