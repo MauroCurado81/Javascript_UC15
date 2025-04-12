@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localização Atual</title>
+</head>
+<body>
+    <h1>Descubra Sua Localização</h1>
+    <button onclick="pegaLocaliza()">Onde Estudou ?</button>
+    <div id="resultado">
+        Clique no botão para descobrir sua Localização
+    </div>
+    <script>
+        function pegaLocaliza(){
+            // Atualiza a Div com uma frase de carregamento
+            document.getElementById('resultado').innerHTML = "Atualizando..."
+
+            //Verifica se a API da localização está disponível
+            if("geolocation" in navigator){
+                navigator.geolocation.getCurrentPosition(
+                    //Função de Sucesso
+                    function(posicao){
+                        const lat = posicao.coords.latitude
+                        const lng = posicao.coords.longitude
+
+                        //Atualiza a Div com as coordenadas
+                        document.getElementById('resultado').innerHTML = `<strong>Você está aqui</strong>
+                        <br>
+                        Latitude : ${lat} <br>
+                        Longitude : ${lng} <br>
+                        <a href="https://maps.google.com.br/?q=${lat},${lng}">
+                            ver no google maps
+                        </a>
+                        `
+                    }
+                )
+                }else{
+                    document.getElementById('resultado').innerHTML = 
+                    "Seu navegador não suporta geolocalização"
+            }
+        }        
+    </script>
+</body>
+</html>

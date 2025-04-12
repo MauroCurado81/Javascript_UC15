@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturar Dados</title>
+</head>
+<body>
+    <h1>Dados do Sistema</h1>
+    <button onclick="mostrarInfoSistema()">
+        Clique para ver as informações do Sistema
+    </button>
+    <script>
+        //função Mostrar Informações Sistemas
+        function mostrarInfoSistema(){
+            //Coletando Informações básica
+            const navegador = navigator.userAgent
+            const sistemaOperacional = navigator.platform
+            const idioma = navigator.language
+
+            //Detecta Sistema Operacional
+            let sistema = "Desconhecido"
+            //Verifica presença de strings específicas no userAgent
+            if(navigator.userAgent.indexOf('Win') !=-1)sistema = "Windows"
+            if(navigator.userAgent.indexOf('Mac') !=-1)sistema = "MacOs"
+            if(navigator.userAgent.indexOf('Linux') !=-1)sistema = "Linux"
+            if(navigator.userAgent.indexOf('Android') !=-1)sistema = "Android"
+            if(navigator.userAgent.indexOf('IOS') !=-1)sistema = "IOS"
+
+            //Detecta Navegador Sistema
+            let navegadorNome="Desconhecido"
+            if(navegador.indexOf('Chrome') !=-1 &&
+                navegador.indexOf('Edg') ==-1 &&
+                navegador.indexOf('OPR') ==-1)
+                {
+                    navegadorNome="Google Chrome"
+                }
+            else if(navegador.indexOf("Edg") !=-1){
+                navegadorNome = "Microsoft Edge"
+            }
+            else if(navegador.indexOf("OPR") !=-1){
+                navegadorNome = "Opera"
+            }
+            else if(navegador.indexOf("Firefox") !=-1){
+                navegadorNome = "Mozilla Firefox"
+            }
+            else if(navegador.indexOf("Safari") !=-1){
+                navegadorNome = "Apple Safari"
+            }
+
+            //Criando Mensagem Final
+            const mensagem = `Informações do Sistema:
+                        Sistema Operacional: ${sistema},
+                        Navegador: ${navegadorNome},
+                        Idioma: ${idioma}
+            `
+                    
+            document.write(mensagem)
+        }
+    </script>
+</body>
+</html>
