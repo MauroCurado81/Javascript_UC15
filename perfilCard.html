@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,82 +7,75 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         /* RESET CSS DO NAVEGADOR */
-        * {
-            margin: 0;
+        *{
+            margin:0;
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
         }
         /* Estilo Body */
-        body {
+        body{
             /* Gradiente */
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             /* Altura Mínima da tela Inteira */
             min-height: 100vh;
             display: flex;
-            /* Centralizada Horizonalmente */
+            /* Centraliza Horizontalmente */
             justify-content: center;
-            /* Centralizada Verticalmente */
+            /* Centraliza Verticalmente */
             align-items: center;
-            /* Espaçamento Interno entre elementos */
+            /* Espaçamento Interno entre elementos*/
             padding: 15px;
         }
- 
-        .container {
+        .container{
             background: #fff;
             padding: 25px;
             border-radius: 15px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
         }
- 
-        .foto-perfil {
+
+        .foto-perfil{
             width: 120px;
             height: 120px;
             border-radius: 50%;
             margin-bottom: 15px;
             border: 3px solid #4ecdc4;
-            object-fit: cover;
-            /* Garante que a imagem cubra o espaço */
+            object-fit: cover;/* Garante que a imagem cubra o espaço */
         }
- 
-        h1 {
+
+        h1{
             color: #333;
             margin-bottom: 10px;
             font-size: 14px;
         }
- 
-        p {
+        p{
             color: #666;
             margin-bottom: 20px;
-            line-height: 1.5;
-            /*Espaçamento Entre linhas */
+            line-height: 1.5; /* Espaçamento Entre linhas */
         }
- 
-        .link {
+        .links{
             display: flex;
-            flex-direction: column;
-            /* Direção dos elementos de cima para baixo-um abaixo do outro */
+            flex-direction: column; 
+            /*Direção dos elementos de cima para baixo - um abaixo do outro*/
             gap: 12px;
         }
- 
-        .botao-link {
+        .botao-link{
             background: #4ecdc4;
             color: aliceblue;
             padding: 12px;
             border-radius: 8px;
             border: none;
             text-decoration: none;
+            font-size:12px
         }
- 
-        #formContato {
+        #formContato{
             margin-top: 15px;
             display: none;
         }
- 
-        .campo-mensagem {
+        .campo-mensagem{
             width: 100%;
             padding: 10px;
             border: 2px solid #4ecdc4;
@@ -91,8 +84,7 @@
             resize: vertical;
             min-height: 100px;
         }
- 
-        .botao-enviar {
+        .botao-enviar{
             background: #45b7b0;
             color: white;
             border: none;
@@ -101,8 +93,7 @@
             cursor: pointer;
             width: 100%;
         }
- 
-        .redes-sociais {
+        .redes-sociais{
             margin-top: 20px;
             display: flex;
             justify-content: center;
@@ -111,54 +102,58 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://placehold.co/120x120?text=Foto+Perfil" class="foto-p">
-        <h1>Seu Nome Aqui</h1>
-        <p>Desenvolvedor Web | Professor de Programação</p>
-        <div id="links">
-            <a href="#" class="botao-link">Portfólio</a>
-            <a href="#" class="botao-link"> Agenda Consultoria</a>
-            <a href="#" class="botao-link">Blog</a>
-            <button id="botao-mensagem" class="botao-link" onclicl="toggleForm()">Enviar Mensagem</button>
-            <form id="formContato" onsubmit="enviarMensagem(event)">
-                <textarea id="mensagem" class="campo-mensagem" required>
-                </textarea>
-                <button type="submit" class="botao-enviar">Enviar via Whats</button>
-            </form>
-        </div>
-        <div class="redes-sociais">
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-github"></i></a>
-        </div>
+  <div class="container">
+    <img src="https://placehold.co/120x120?text=Foto+Perfil" class="foto-perfil">
+    <h1>Seu Nome Aqui</h1>
+    <p>Desenvolvedor Web | Professor de Programação</p>
+    <div class="links">
+        <a href="#" class="botao-link">Portfólio</a>
+        <a href="#" class="botao-link">Agenda Consultoria</a>
+        <a href="#" class="botao-link">Blog</a>
+        
+        <button id="botao-mensagem" class="botao-link" onclick="toggleForm()">Enviar Mensagem</button>
+        
+        <form id="formContato" onsubmit="enviarMensagem(event)">
+            <textarea id="mensagem" class="campo-mensagem" required>    
+            </textarea>
+            <button type="submit" class="botao-enviar">Enviar via Whats</button>
+        </form>
     </div>
-    <script>
-        // Numero Celular para enviar mensagem
-        let numeroWhatsapp = "5517999999"
-        // Função mostrar / ocultar formulário
-        function toggleForm() {
-            let form = document.getElementById("formContato")
-            // Se o display for 'block' muda para none e vice-versa,troca CSS
-            form.style.display = form.style.display === 'block' ? `none` : 'block'
-            if (form.style.display === "block") {
-                setTimeout(() => document.querySelector('.campo-mensagem').focus(), 50)
-            }
+
+    <div class="redes-sociais">
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-linkedin"></i></a>
+        <a href="#"><i class="bi bi-github"></i></a>
+    </div>
+  </div>
+  <script>
+    // Numero Celular para enviar mensagem
+    let numeroWhatsapp = "55179999999"
+
+    // Função mostrar / ocultar formulário
+    function toggleForm(){
+        let form = document.getElementById("formContato")
+        // Se o display for 'block' muda para none e vice-versa, troca CSS
+        form.style.display = form.style.display === 'block' ? 'none' : 'block'
+        if(form.style.display === "block"){
+            setTimeout(()=> document.querySelector('.campo-mensagem').focus(),50)
         }
-        // Função para Enviar Mensagem para o whats
-        function enviarMensagem(e){
-            e.preventDefault() // Evitar que o formulário seja enviado
-            // Busca o valor do campo de mensagem e remove espaços extras
-            let msg = document.querySelector('.campo-mensagem').value.trim()
-            // Trim remove os espaços em branco
- 
-            // Cria um link para Whatsapp com mensagem
-            window.open('https://wa.me/${numeroWhatsapp}?text=${msg}')
-           
-            // Limpa o formulário após envio
-            document.getElementById('formContato').reset()
-            // Oculta o formulario
-            document.getElementById('formContato').style.display = 'none'
-        }
-    </script>
+    }
+    // Função para Enviar Mensagem para o whats
+    function enviarMensagem(e){
+        e.preventDefault() // Evitar que o formulário seja enviado
+        // Busca o valor do campo de mensagem e remove espaços extras
+        let msg = document.querySelector('.campo-mensagem').value.trim()
+        // Trim remove os espaços em branco
+
+        // Cria um link para Whatsapp com mensagem 
+        window.open(`https://wa.me/${numeroWhatsapp}?text=${msg}`)
+
+        // Limpa o formulário após envio
+        document.getElementById('formContato').reset()
+        // Oculta o formulario
+        document.getElementById('formContato').style.display = 'none'
+    }
+  </script>
 </body>
 </html>
