@@ -16,7 +16,7 @@
         /* Estilo Body */
         body{
             /* Gradiente */
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #5e5c5c, #f0f3f3);
             /* Altura Mínima da tela Inteira */
             min-height: 100vh;
             display: flex;
@@ -42,7 +42,7 @@
             height: 120px;
             border-radius: 50%;
             margin-bottom: 15px;
-            border: 3px solid #4ecdc4;
+            border: 3px solid #000000;
             object-fit: cover;/* Garante que a imagem cubra o espaço */
         }
 
@@ -63,7 +63,7 @@
             gap: 12px;
         }
         .botao-link{
-            background: #4ecdc4;
+            background: #000000;
             color: aliceblue;
             padding: 12px;
             border-radius: 8px;
@@ -78,14 +78,14 @@
         .campo-mensagem{
             width: 100%;
             padding: 10px;
-            border: 2px solid #4ecdc4;
+            border: 2px solid #000000;
             border-radius: 8px;
             margin-bottom: 10px;
             resize: vertical;
             min-height: 100px;
         }
         .botao-enviar{
-            background: #45b7b0;
+            background: #000000;
             color: white;
             border: none;
             padding: 12px;
@@ -99,36 +99,38 @@
             justify-content: center;
             gap: 15px;
         }
+        .cor{
+            color: #000000;
+        }
     </style>
 </head>
 <body>
   <div class="container">
-    <img src="https://placehold.co/120x120?text=Foto+Perfil" class="foto-perfil">
-    <h1>Seu Nome Aqui</h1>
+    <img src="img.jfif" class="foto-perfil">
+    <h1>Mauro Curado</h1>
     <p>Desenvolvedor Web | Professor de Programação</p>
     <div class="links">
-        <a href="#" class="botao-link">Portfólio</a>
-        <a href="#" class="botao-link">Agenda Consultoria</a>
-        <a href="#" class="botao-link">Blog</a>
+        <a href="portfolio_mauro_curado.html"class="botao-link" target="_blank">Portfólio</a>
+        <a href="Curriculum.pdf" class="botao-link" target="_blank">Curriculum</a>
+        
         
         <button id="botao-mensagem" class="botao-link" onclick="toggleForm()">Enviar Mensagem</button>
         
         <form id="formContato" onsubmit="enviarMensagem(event)">
             <textarea id="mensagem" class="campo-mensagem" required>    
             </textarea>
-            <button type="submit" class="botao-enviar">Enviar via Whats</button>
+            <button type="submit" class="botao-enviar">Enviar via WhatsApp</button>
         </form>
     </div>
 
     <div class="redes-sociais">
-        <a href="#"><i class="bi bi-instagram"></i></a>
-        <a href="#"><i class="bi bi-linkedin"></i></a>
-        <a href="#"><i class="bi bi-github"></i></a>
+        <a href="#"><i class="cor bi bi-linkedin"></i></a>
+        <a href="https://maurocurado81.github.io/portfolio-mauro/" target="_blank"><i class="cor bi bi-github"></i></a>
     </div>
   </div>
   <script>
     // Numero Celular para enviar mensagem
-    let numeroWhatsapp = "55179999999"
+    let numeroWhatsapp = "+5517988349176"
 
     // Função mostrar / ocultar formulário
     function toggleForm(){
