@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #pesquisa {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #entrada-pokemon {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #botao-pesquisar {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: aliceblue;
+            border: none;
+        }
+
+        #informacoes-pokemon {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        #informacoes-pokemon img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pokédex Simples</h1>
+
+    <div id="pesquisa">
+        <input type="text" id="entrada-pokemon" placeholder="Nome ou ID">
+        <button id="botao-pesquisar" onclick="pesquisarPokemon()">Busca</button>
+    </div>
+    <div id="informacoes-pokemon"></div>
+    <script>
+        function pesquisarPokemon() {
+            const pokemon = document.getElementById('entrada-pokemon')
+                .value.toLowerCase()
+
+            const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+
+            fetch(url)
+                //Fetch faz uma requisição HTTP para a URL
+                //Retorna uma Promise (promessa que virá um dado)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Pokemon não encontrado')
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    let informacoesPokemon = document.getElementById('informacoes-pokemon')
+                    informacoesPokemon.innerHTML =`
+                    <img src="${data.sprites.other['official-artwork'].front_default ||
+                    data.sprites.front_default}">
+                            <p>Nome:${data.name}</p>
+                            <p>ID:${data.id}</p>
+                            <p>Altura:${data.height / 10}</p>
+                            <p>Peso:${data.weight / 10}</p>
+                            <p>Habilidades:${data.abilities.map(ability => ability.ability.name)
+                                .join(', ')}</p>`
+        })
+        }
+    </script>
+</body>
+
+</html>
