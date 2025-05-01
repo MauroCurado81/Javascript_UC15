@@ -1,0 +1,223 @@
+<!DOCTYPE html> <!-- Define o tipo de documento como HTML5 -->
+<html lang="pt-BR"> <!-- Define o idioma principal da página como português brasileiro -->
+ 
+<head>
+    <meta charset="UTF-8"> <!-- Define o conjunto de caracteres como UTF-8, aceitando acentuação -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Faz o layout se adaptar a dispositivos móveis -->
+    <title>Adivinhe o Pokémon</title> <!-- Define o título que aparece na aba do navegador -->
+ 
+    <style>
+        /* ==================== ESTILOS GERAIS ==================== */
+        body {
+            font-family: Arial, sans-serif;
+            /* Fonte principal */
+            background-color: #f4f4f4;
+            /* Cor de fundo clara */
+            display: flex;
+            /* Ativa Flexbox para alinhamento */
+            flex-direction: column;
+            /* Organiza os filhos em coluna (um embaixo do outro) */
+            align-items: center;
+            /* Centraliza o conteúdo horizontalmente */
+            justify-content: center;
+            /* Centraliza o conteúdo verticalmente */
+            height: 100vh;
+            /* Altura igual a 100% da altura da tela */
+            margin: 0;
+            /* Remove margens padrão */
+        }
+ 
+        h1 {
+            color: #333;
+            /* Cor escura para o título */
+            margin-bottom: 20px;
+            /* Espaço abaixo do título */
+        }
+ 
+        /* ==================== ESTILOS DO CONTAINER DO JOGO ==================== */
+        #jogo {
+            background-color: #fff;
+            /* Fundo branco */
+            padding: 20px;
+            /* Espaço interno */
+            border-radius: 10px;
+            /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Sombra ao redor */
+            text-align: center;
+            /* Centraliza texto */
+            max-width: 400px;
+            /* Largura máxima */
+            width: 100%;
+            /* Ocupa toda a largura até o limite */
+        }
+ 
+        /* ==================== ESTILO DAS DICAS ==================== */
+        #dicas {
+            margin-bottom: 20px;
+            /* Espaço abaixo das dicas */
+        }
+ 
+        #dicas p {
+            margin: 5px 0;
+            /* Espaço vertical entre parágrafos */
+            color: #555;
+            /* Cor do texto das dicas */
+        }
+ 
+        #dicas p strong {
+            color: #333;
+            /* Cor mais forte para os títulos das dicas */
+        }
+ 
+        /* ==================== ESTILO DA IMAGEM DO POKÉMON ==================== */
+        #imagem-pokemon {
+            width: 150px;
+            /* Largura da imagem */
+            height: 150px;
+            /* Altura da imagem */
+            margin: 10px auto;
+            /* Espaço vertical e centralização */
+            filter: blur(5px) grayscale(100%) brightness(0) contrast(200%);
+            /* Aplica um filtro para deixar a imagem desfocada e escurecida (silhueta) */
+            opacity: 0.7;
+            /* Deixa a imagem semi-transparente */
+            border-radius: 10px;
+            /* Bordas arredondadas */
+        }
+ 
+        /* ==================== ESTILO DO INPUT E BOTÃO ==================== */
+        #entrada-palpite {
+            padding: 10px;
+            /* Espaçamento interno */
+            width: calc(100% - 120px);
+            /* Calcula o tamanho relativo ao container */
+            border: 1px solid #ccc;
+            /* Borda cinza clara */
+            border-radius: 5px;
+            /* Bordas arredondadas */
+            margin-bottom: 10px;
+            /* Espaço abaixo do input */
+        }
+ 
+        #botao-palpite {
+            padding: 10px 20px;
+            /* Espaçamento interno */
+            background-color: #007bff;
+            /* Azul vibrante */
+            color: #fff;
+            /* Texto branco */
+            border: none;
+            /* Sem borda */
+            border-radius: 5px;
+            /* Bordas arredondadas */
+            cursor: pointer;
+            /* Cursor de mãozinha */
+        }
+ 
+        #botao-palpite:hover {
+            background-color: #0056b3;
+            /* Azul mais escuro no hover */
+        }
+ 
+        /* ==================== ESTILO DO RESULTADO DO PALPITE ==================== */
+        #resultado {
+            margin-top: 20px;
+            /* Espaço acima */
+            font-weight: bold;
+            /* Texto em negrito */
+        }
+ 
+        /* Estilos condicionais para acerto e erro */
+        #resultado.certo {
+            color: green;
+            /* Verde para resposta certa */
+        }
+ 
+        #resultado.errado {
+            color: red;
+            /* Vermelho para resposta errada */
+        }
+    </style>
+</head>
+<body>
+    <h1>Adivinha o Pokémon</h1>
+
+    <div id="jogo">
+        <div id="dicas"></div>
+        <img id="imagem-pokemon" src="" alt="imagem do Pokémon">
+        <input type="text" id="entrada-palpite" placeholder="Nome do Poké">
+        <button id="botao-palpite">Enviar Palpite</button>
+        <div id="resultado"></div>
+    </div>
+    <script>
+        let pokemonAleatorio
+
+        async function buscarPokemonAleatorio(){
+            let id = Math.floor(Math.random()*1024)+1
+            //Calcula um numero aleatorio de 0 à 1000
+            let url =`https://pokeapi.co/api/v2/pokemon/${id}`
+
+            let response = await fetch(url)
+
+            let data = await response.json()
+            return data
+        }
+
+        function exibirDicas(pokemon){
+            let dicas = document.getElementById('dicas')
+            let imagemPokemon = document.getElementById('imagem-pokemon')
+
+            dicas.innerHTML=`
+            <p><strong>Tipo:</strong>${pokemon.types.map(type=>type.type.name)}</p>
+            <p><strong>Altura:</strong>${pokemon.height/10}m</p>
+            <p><strong>Peso:</strong>${pokemon.weight/10}kg</p>
+            `
+
+
+            imagemPokemon.src = pokemon.sprites.other['official-artwork']
+                                .front_default || pokemon.sprites.front_default
+                                console.log(pokemon)
+        }
+
+        function verificarPalpite(palpite, pokemon){
+            let resultado = document.getElementById('resultado')
+            let palpiteNormalizado = palpite.trim().toLowerCase()
+
+            let nomePokemonNormalizado = pokemon.name.toLowerCase()
+
+            if(palpiteNormalizado == nomePokemonNormalizado){
+                resultado.textContent = "Parabéns ! Você acertou"
+                resultado.className = "Certo"
+
+                document.getElementById('imagem-pokemon').style.filter = 'none'
+                document.getElementById('imagem-pokemon').style.opacity = '1'
+
+                setTimeout(inicirNovoJogo,3000)
+            }else{
+                resultado.textContent = "Tente Novamente !"
+                resultado.className = "errado"
+            }
+        }
+
+        async function inicirNovoJogo(){
+            pokemonAleatorio = await buscarPokemonAleatorio()
+            exibirDicas(pokemonAleatorio)
+            document.getElementById('entrada-palpite').value=""
+            document.getElementById('resultado').textContent=""
+            document.getElementById('imagem-pokemon')
+            .style.filter="blur(5px) grayscale(100%) brightness(0) contrast(200%)"
+            document.getElementById('imagem-pokemon').style.opacity = "0.7"
+        }
+
+        document.getElementById('botao-palpite').addEventListener('click',
+            function(){
+                let palpite = document.getElementById('entrada-palpite').value
+                verificarPalpite(palpite, pokemonAleatorio)
+            }
+        )
+        window.onload = inicirNovoJogo
+    </script>
+</body>
+</html>
