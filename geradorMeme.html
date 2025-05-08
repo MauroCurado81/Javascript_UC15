@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container{
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1{
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input-group{
+            margin-bottom: 15px;
+        }
+        input{
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid #ddd;
+        }
+        button{
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor:pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        #memePreview{
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Memes</h1>
+        <div class="input-group">
+            <input type="text" id="topText" placeholder="Texto Superior">
+            <input type="text" id="bottomText" placeholder="Texto Inferior">
+        </div>
+        <button onclick="gerarMeme()">Criar Meme</button>
+        <img id="memePreview" alt="Prévia do Meme">
+    </div>
+    <script>
+        function formatarTexto(texto){
+            return texto.trim().replace(/ /g,'_')
+                               .replace(/'/g,'~')
+                               .replace(/\?/g,'~q')
+                               .replace(/#/g,'~h')
+        }
+        function gerarMeme(){
+            let topText=formatarTexto(document.getElementById('topText').value)
+            let bottomText=formatarTexto(document.getElementById('bottomText').value)
+            let template = 'bender'
+            let url = `https://api.memegen.link/images/${template}/${topText}/${bottomText}.jpg`
+            let preview = document.getElementById('memePreview')
+            preview.src = url
+            preview.style.display = 'block'
+
+        }
+    </script>
+</body>
+</html>

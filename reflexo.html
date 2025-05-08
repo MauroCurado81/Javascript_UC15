@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflexao Game</title>
+    <style>
+        #gameArea{
+            width: 300px;
+            height: 300px;
+            border: 2px solid #333;
+            position: relative;
+            margin: 20px auto;
+        }
+        .target{
+            width: 50px;
+            height: 50px;
+            background-color: #e74c3c;
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .target:hover{
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1> Teste de Reflexos</h1>
+        <p>Pontuação: <span id="pontuacao">0</span></p>
+        <p>Tempo Restante: <span id="tempo">30</span></p>
+        <div id="gameArea"></div>
+        <button onclick="IniciarJogo()">Começar Jogo</button>
+    </div>
+    <script>
+        let pontuacao = 0
+        let tempoRestante = 30
+        let jogoEstaAtivo = false
+
+        function criarNovoAlvo(){
+            let areaDoJogo = document.getElementById('gameArea')
+            areaDoJogo.innerHTML = ''
+
+            let alvo = document.createElement('div')
+            alvo.className = 'target'
+
+            alvo.style.left = Math.random() * 250 + 'px'
+            alvo.style.top = Math.random() * 250 + 'px'
+
+            alvo.addEventListener('click',()=>{
+                if(jogoEstaAtivo){
+                    pontuacao++
+                    document.getElementById('pontuacao').textContent=pontuacao
+                    criarNovoAlvo()
+                }
+
+            })
+            areaDoJogo.appendChild(alvo)
+        }
+
+        function IniciarJogo(){
+            jogoEstaAtivo = true
+            pontuacao = 0
+            tempoRestante = 30
+
+            document.getElementById('pontuacao').textContent = '0'
+            document.getElementById('tempo').textContent = tempoRestante
+            criarNovoAlvo()
+
+            let cronometro = setInterval(()=>{
+                tempoRestante--
+                document.getElementById('tempo').textContent=tempoRestante
+                if(tempoRestante <= 0){
+                    clearInterval(cronometro)
+                    jogoEstaAtivo = false
+                    alert(`Final do Jogo ! ${pontuacao} Pontos`)
+                }
+            },1000)
+        }
+    </script>
+</body>
+</html>
