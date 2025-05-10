@@ -31,7 +31,7 @@
         .input-group{
             margin-bottom: 15px;
         }
-        input{
+        input, select{
             width: 100%;
             padding: 10px;
             margin: 5px 0;
@@ -60,8 +60,15 @@
     <div class="container">
         <h1>Gerador de Memes</h1>
         <div class="input-group">
-            <input type="text" id="topText" placeholder="Texto Superior">
-            <input type="text" id="bottomText" placeholder="Texto Inferior">
+            <select id="seletorTemplate">
+                <option value="drake">Drake Sim/Não</option>
+                <option value="">Opção 02</option>
+                <option value="aag">Opção 03</option>
+                <option value="ams">Opção 04</option>
+            </select>
+            <!--Lista de Imagens https://memegen.link-->
+            <input type="text" id="textoSuperior" placeholder="Texto Superior">
+            <input type="text" id="textoInferior" placeholder="Texto Inferior">
         </div>
         <button onclick="gerarMeme()">Criar Meme</button>
         <img id="memePreview" alt="Prévia do Meme">
@@ -74,16 +81,26 @@
                                .replace(/#/g,'~h')
         }
         function gerarMeme(){
-            let topText=formatarTexto(document.getElementById('topText').value)
-            let bottomText=formatarTexto(document.getElementById('bottomText').value)
-            let template = 'bender'
+            let modelo=document.getElementById('seletorTemplate').value
+            let textoCima= formatarTexto(document.getElementById('textoSuperior').value)
+            let textoBaixo= formatarTexto(document.getElementById('textoInferior').value)
+            
+            let linkMeme = `https://api.memegen.link/images/${modelo}/${textoCima}/${textoBaixo}.jpg`
 
+            let visualizacao = document.getElementById('memePreview')
+            visualizacao.src = linkMeme
+            visualizacao.style.display = 'block'
 
-            let url =  
-            `https://api.memegen.link/images/${template}/${topText}/${bottomText}.jpg`
-            let preview = document.getElementById('memePreview')
-            preview.src = url
-            preview.style.display = 'block'
+            document.getElementById('botaoDownload').disable = false
+        }
+
+        function baixarMeme(){
+            let link = document.createElement('a')
+            link.href = document.getElementById('visualizacaoMeme').src
+            link.download = 'meu_meme.jpg'
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
 
         }
     </script>
